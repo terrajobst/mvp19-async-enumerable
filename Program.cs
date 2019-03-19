@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace iasyncenumerable
@@ -9,9 +10,13 @@ namespace iasyncenumerable
         {
             var dataAccess = new DataAccess(Configuration.ConnectionString);
 
-            await foreach (var employee in dataAccess.GetAllEmployeesAsync())
+            var employess = dataAccess.GetAllEmployeesAsync()
+                                      .Where(e => e.EmployeeId > 3)
+                                      .Select(e => e.FullName);
+
+            await foreach (var employee in employess)
             {
-                Console.WriteLine(employee.FullName);
+                Console.WriteLine(employee);
             }   
         }
     }

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
+    <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.1.build.745" />
   </ItemGroup>
 
 </Project>
