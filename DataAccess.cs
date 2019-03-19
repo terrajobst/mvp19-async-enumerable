@@ -13,11 +13,11 @@ namespace iasyncenumerable
             _connectionString = connectionString;
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public async IAsyncEnumerable<Employee> GetAllEmployeesAsync()
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
+                await connection.OpenAsync();
 
                 var sql = @"
                     SELECT	e.EmployeeID,
@@ -28,8 +28,8 @@ namespace iasyncenumerable
 
                 using (var cmd = new SqlCommand(sql, connection))
                 {
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    var reader = await cmd.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
                     {
                         yield return new Employee
                         {
